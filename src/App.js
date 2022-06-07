@@ -57,16 +57,9 @@ function App() {
       return app
     }
     ))
-  }
-
-  const CloseAppOnOpen = (index) => {
-    setAppsAbertos(AppsAbertos.map(app => {
-      if(app.index === index){
-        app.open = !app.open
-      }
-      return app
-    }
-    ))
+    setTimeout(() => {
+      setAppsAbertos(AppsAbertos.filter(app => app.index !== index))
+    }, 2000)
   }
 
   const mimimizeApp = (index) => {
