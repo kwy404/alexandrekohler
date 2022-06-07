@@ -1,8 +1,8 @@
 import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
-import {CalculatorTor, Notes, VsCode, AboutMeApp} from './AppsE/apps';
-import { useEffect, useState, onRef } from 'react';
+import {CalculatorTor, Notes, VsCode, AboutMeApp, Spotify} from './AppsE/apps';
+import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 
 const AppsFrom = [{
@@ -17,6 +17,9 @@ const AppsFrom = [{
 },{
   App: AboutMeApp,
   title: `Sobre`
+}, {
+  App: Spotify,
+  title: 'Spotify'
 }]
 
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));

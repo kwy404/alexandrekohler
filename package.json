@@ -16,6 +16,7 @@
     "react-osx-dock": "^1.0.0",
     "react-resizable": "^3.0.4",
     "react-scripts": "5.0.1",
+    "react-spotify-player": "^1.0.4",
     "react-window-ui": "^2.2.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
