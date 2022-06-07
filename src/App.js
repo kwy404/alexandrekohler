@@ -1,7 +1,7 @@
 import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
-import {CalculatorTor, Notes} from './AppsE/apps';
+import {CalculatorTor, Notes, VsCode} from './AppsE/apps';
 import { useEffect, useState, onRef } from 'react';
 import Draggable from 'react-draggable';
 
@@ -11,11 +11,15 @@ const AppsFrom = [{
 }, {
   App: Notes,
   title: `Notas`
+}, {
+  App: VsCode,
+  title: `VsCode`
 }]
 
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));
 //Transform wallpapers to array 
 const AppsArray = Object.keys(apps).map(key => apps[key]);
+console.log(AppsArray)
 //Transform AppsArray in array object
 const AppsArrayObject = AppsArray.map((app, index) => {
     return {

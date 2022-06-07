@@ -33,6 +33,40 @@ export const CalculatorTor = props => {
   />
 }
 
+const VSCode = () => {
+  return <div
+  >
+    <iframe 
+    style={{
+      width: `calc(100% - 0px)`,
+      height: `100%`,
+      position: `fixed`,
+      top: `0px`,
+      marginLeft: `-10px`
+    }}
+    src='https://vscode.dev/' 
+    frameBorder={0}></iframe>
+  </div>
+}
+
+export const VsCode = props => {
+  return <AppT 
+  title={"Visual Studio Code"} 
+  index={props.index}
+  mimimizeApp={() => props.mimimizeApp}
+  MimimizeAppTwo={props.MimimizeAppTwo}
+  CloseApp={() => props.CloseApp}
+  App={VSCode} 
+  opened={props.opened}
+  bg={`#555`}
+  resize={true}
+  width={`800px`}
+  height={`600px`}
+  overflowY={`hidden`}
+  overflowX={`hidden`}
+/>
+}
+
 export const Notes = props => {
   return <AppT 
   title={"Notas"} 
@@ -46,7 +80,7 @@ export const Notes = props => {
   resize={true}
   width={`800px`}
   height={`500px`}
-  overflowY={`hidden`}
+  overflowY={`auto`}
   overflowX={`hidden`}
 />
 }
