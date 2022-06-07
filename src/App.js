@@ -2,7 +2,7 @@ import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
 import {CalculatorTor, Notes} from './AppsE/apps';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, onRef } from 'react';
 import Draggable from 'react-draggable';
 
 const AppsFrom = [{
@@ -25,7 +25,8 @@ const AppsArrayObject = AppsArray.map((app, index) => {
         App: AppsFrom[index].App,
         open: true,
         MimizeApp: false,
-        id: 0
+        id: 0,
+        ref: null
     }
 });
 
@@ -33,6 +34,7 @@ function App() {
   const [AppsArrayObjectState, setAppsArrayObjectState] = useState(AppsArrayObject);
   const [AppsAbertos, setAppsAbertos] = useState([]);
   const [time, setTime] = useState(0);
+  const [MoreApps, setMoreApps] = useState(null);
 
   useEffect(() => {
     window.addEventListener('keyup', e => {
@@ -127,6 +129,23 @@ function App() {
         </div>
       </div>
       <div className='leftAside'>
+      { MoreApps && <div
+      style={{
+        top: `${MoreApps.y}px`,
+      }}
+      className='moreOptionsClickDireito'>
+          <div className='close' onClick={() => {
+            setMoreApps(null)
+          }}></div>
+          <li 
+          onClick={() => {
+            CloseApp(MoreApps.App.index)
+            setMoreApps(null)
+          }}
+          >
+            <i className="fa-solid fa-xmark"></i> Fechar janela
+          </li>
+      </div> }
       {AppsAbertos.map((App, index) => (
         <>
          <div>
@@ -134,7 +153,12 @@ function App() {
            <>
             {!App.MimizeApp && <div className='selectMimizeApp'/>}
             <div
-            key={index} 
+            ref={App.ref}
+            key={index}
+            onContextMenu={(e) => {
+              setMoreApps({App, y: e.clientY - 10})
+              e.preventDefault()
+            }}
             onClick={() => mimimizeApp(App.index)}
             className='iconApp displayBlock'>
               <img src={App.icon}/>
