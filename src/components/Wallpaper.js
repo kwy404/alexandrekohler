@@ -18,7 +18,7 @@ const Wallpaper = styled.div`
     height: 100%;
     background-size: cover;
     filter: brightness(0.8);
-    z-index: 0;
+    z-index: 1;
 `
 
 export const WallpaperComp = () => {

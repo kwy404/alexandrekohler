@@ -68,12 +68,13 @@ body{
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  position: absolute;
+  position: relative;
   top: 0.5rem;
   left: 0.5rem;
   z-index: 20;
   cursor: pointer;
   z-index: -1;
+  margin-top: 40px;
 }
 
 .iconApp:hover{
@@ -102,7 +103,7 @@ body{
   left: 120px;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 20;
 }
 
 .OpenAppAnimation{
@@ -171,5 +172,47 @@ body{
   color: #fff;
   user-select: none;
   pointer-events: none;
-  z-index: 0;
+  z-index: 10;
+}
+
+.leftAside{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100%;
+  z-index: 50;
+  font-size: 5rem;
+  text-shadow: 0 0 0.1rem #000;
+  background-color: rgb(40 40 40);
+  color: #fff;
+  user-select: none;
+  z-index: 20;
+  box-shadow: 0 0 0.1rem rgba(0,0,0,.40);
+}
+
+.displayBlock{
+  display: block;
+  position: relative;
+  z-index: 15;
+  width: 60px !important;
+  height: 60px !important;
+  margin-left: -2px;
+  margin-top: 5px;
+}
+
+.displayBlock img{
+  object-fit: cover;
+}
+
+.selectMimizeApp{
+  position: absolute;
+  margin-top: 60px;
+  left: -1px;
+  width: 5px;
+  height: 10px;
+  z-index: 1;
+  background-color: #fff;
+  box-shadow:rgb(40 40 40);
+  border-radius: 2px;
 }

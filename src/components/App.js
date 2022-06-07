@@ -13,7 +13,8 @@ export const AppT = (props) => {
                     position={null}>
                             <Browser
                             style={{
-                                width: "fit-content",
+                                width: props.width,
+                                height: props.height,
                                 padding: "10px",
                                 overflowY: props.overflowY,
                                 backgroundColor: props.bg,

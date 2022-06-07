@@ -1,13 +1,16 @@
 import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
-import {CalculatorTor} from './AppsE/calculadora';
+import {CalculatorTor, Notes} from './AppsE/apps';
 import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 
 const AppsFrom = [{
   App: CalculatorTor,
   title: `Calculadora`
+}, {
+  App: Notes,
+  title: `Notas`
 }]
 
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));
@@ -43,10 +46,21 @@ function App() {
     newApp.index = AppsAbertos.length + 1
     setAppsAbertos(AppsAbertos.concat(newApp));
   }
+
   const CloseApp = (index) => {
     setAppsAbertos(AppsAbertos.map(app => {
       if(app.index === index){
         app.open = false
+      }
+      return app
+    }
+    ))
+  }
+
+  const CloseAppOnOpen = (index) => {
+    setAppsAbertos(AppsAbertos.map(app => {
+      if(app.index === index){
+        app.open = !app.open
       }
       return app
     }
@@ -85,7 +99,6 @@ function App() {
 
   return (
     <div className="App">
-      <WallpaperComp/>
       <h1 className='timeHours'>{time}</h1>
       <div className='appsDesktop'>
       {AppsArrayObjectState.map((App, index) => (
@@ -113,6 +126,25 @@ function App() {
           ))}
         </div>
       </div>
+      <div className='leftAside'>
+      {AppsAbertos.map((App, index) => (
+        <>
+         <div>
+           { App.open && 
+           <>
+            {!App.MimizeApp && <div className='selectMimizeApp'/>}
+            <div
+            key={index} 
+            onClick={() => mimimizeApp(App.index)}
+            className='iconApp displayBlock'>
+              <img src={App.icon}/>
+              {/* <span className='titleApp'>{App.title}</span> */}</div>
+           </> }
+          </div>
+        </>
+      ))}
+      </div>
+      <WallpaperComp/>
     </div>
   );
 }
