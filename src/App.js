@@ -244,8 +244,7 @@ const Desktop = () => {
           onClick={() => mimimizeApp(App.index)}
           className='iconApp displayBlock'>
             <img src={App.icon}/>
-            {!App.MimizeApp && <div className='selectMimizeApp'/>}
-            {/* <span className='titleApp'>{App.title}</span> */}</div>
+            {!App.MimizeApp && <div className='selectMimizeApp'/>}</div>
          </> }
         </div>
       </>

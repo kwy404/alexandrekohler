@@ -27,10 +27,10 @@ export const AboutMeApp = props => {
     CloseApp={() => props.CloseApp}
     App={AboutMe} 
     opened={props.opened}
-    bg={`white`}
+    bg={`#151515`}
     resize={false}
-    width={props.mobile ? `100%` : `fit-content`}
-    height={props.mobile ? `100%` : `fit-content`}
+    width={props.mobile ? `100%` : `550px`}
+    height={props.mobile ? `100%` : `550px`}
     overflowY={`hidden`}
     overflowX={`hidden`}
   />
