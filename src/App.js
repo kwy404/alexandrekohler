@@ -1,7 +1,7 @@
 import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
-import {CalculatorTor, Notes, VsCode} from './AppsE/apps';
+import {CalculatorTor, Notes, VsCode, AboutMeApp} from './AppsE/apps';
 import { useEffect, useState, onRef } from 'react';
 import Draggable from 'react-draggable';
 
@@ -14,6 +14,9 @@ const AppsFrom = [{
 }, {
   App: VsCode,
   title: `VsCode`
+},{
+  App: AboutMeApp,
+  title: `Sobre`
 }]
 
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));
@@ -34,6 +37,20 @@ const AppsArrayObject = AppsArray.map((app, index) => {
 });
 
 function App() {
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowSize(window.innerWidth);
+    })
+  }, [])
+  return (
+    <>
+      { windowSize > 700 ? <Desktop/> : `` }
+    </>
+  );
+}
+
+const Desktop = () => {
   const [AppsArrayObjectState, setAppsArrayObjectState] = useState(AppsArrayObject);
   const [AppsAbertos, setAppsAbertos] = useState([]);
   const [time, setTime] = useState(0);
@@ -46,18 +63,23 @@ function App() {
     window.addEventListener('keyup', e => {
       e.preventDefault();
     })
+    const newApp = {...AppsArrayObjectState[3], index: -1}
+    newApp.index = -1
+    newApp.closed = false
+    setAppsAbertos(AppsAbertos.concat(newApp));
   }, [true])
 
   const OpenApp = (app) => {
     //Set AppsAbertos
     const newApp = {...app, index: AppsAbertos.length + 1}
     newApp.index = AppsAbertos.length + 1
+    newApp.closed = true
     setAppsAbertos(AppsAbertos.concat(newApp));
   }
 
   const CloseApp = (index) => {
     setAppsAbertos(AppsAbertos.map(app => {
-      if(app.index === index){
+      if(app.index === index && app.closed) {
         app.open = false
       }
       return app
@@ -94,142 +116,143 @@ function App() {
       getTimer()
     }, 1000)
   }
-
-  return (
+  return <div 
+  onContextMenu={(e) => {
+    e.preventDefault()
+  }}
+  className={`App`}>
+    <h1 className='timeHours'>{time}</h1>
+    { ajustes.open && <div
+    style={{
+      top: `${ajustes.y}px`,
+      left: `${ajustes.x}px`
+    }}
+    className='moreOptionsClickDireito--Ajustes'>
+        <div className='close' onClick={() => {
+          setAjustes({ y:0,x: 0, open: false})
+        }}></div>
+        <li onMouseOver={() => {
+          setShowAjustesSizeIcon(!showAjustesSizeIcon)
+        }}>
+          Exibir <i className="fa-solid fa-chevron-right"></i>
+        </li>
+        <li 
+        onClick={() => {
+          setAjustes({ y:0,x: 0, open: false})
+        }}
+        onMouseOver={() => setShowAjustesSizeIcon(false)}>
+          Atualizar
+        </li>
+        <li
+        onMouseOver={() => setShowAjustesSizeIcon(false)}>
+          Personalizar
+        </li>
+        { showAjustesSizeIcon && 
+        <div className='rightPanel'>
+          <li 
+          className={`${sizeIcon === 'largue' ? 'activeLi' : ''}`} 
+          onClick={() => {
+            setSizeIcon('largue')
+            localStorage.setItem('sizeIcon', 'largue')
+          }}>
+            Icones grandes 
+          </li>
+          <li 
+          className={`${sizeIcon === 'medium' ? 'activeLi' : ''}`} 
+          onClick={() => {
+            setSizeIcon('medium')
+            localStorage.setItem('sizeIcon', 'medium')
+          }}>
+            Icones medios 
+          </li>
+          <li 
+          className={`${sizeIcon === 'small' ? 'activeLi' : ''}`} 
+          onClick={() => {
+            setSizeIcon('small')
+            localStorage.setItem('sizeIcon', 'small')
+          }}>
+            Icones pequenos 
+          </li>
+        </div> }
+    </div> }
     <div 
     onContextMenu={(e) => {
+      setAjustes({ y: e.clientY - 10,x: e.clientX - 10, open: true})
       e.preventDefault()
     }}
-    className={`App`}>
-      <h1 className='timeHours'>{time}</h1>
-      { ajustes.open && <div
-      style={{
-        top: `${ajustes.y}px`,
-        left: `${ajustes.x}px`
-      }}
-      className='moreOptionsClickDireito--Ajustes'>
-          <div className='close' onClick={() => {
-            setAjustes({ y:0,x: 0, open: false})
-          }}></div>
-          <li onMouseOver={() => {
-            setShowAjustesSizeIcon(!showAjustesSizeIcon)
-          }}>
-            Exibir <i className="fa-solid fa-chevron-right"></i>
-          </li>
-          <li 
-          onClick={() => {
-            setAjustes({ y:0,x: 0, open: false})
-          }}
-          onMouseOver={() => setShowAjustesSizeIcon(false)}>
-            Atualizar
-          </li>
-          <li
-          onMouseOver={() => setShowAjustesSizeIcon(false)}>
-            Personalizar
-          </li>
-          { showAjustesSizeIcon && 
-          <div className='rightPanel'>
-            <li 
-            className={`${sizeIcon === 'largue' ? 'activeLi' : ''}`} 
-            onClick={() => {
-              setSizeIcon('largue')
-              localStorage.setItem('sizeIcon', 'largue')
-            }}>
-              Icones grandes 
-            </li>
-            <li 
-            className={`${sizeIcon === 'medium' ? 'activeLi' : ''}`} 
-            onClick={() => {
-              setSizeIcon('medium')
-              localStorage.setItem('sizeIcon', 'medium')
-            }}>
-              Icones medios 
-            </li>
-            <li 
-            className={`${sizeIcon === 'small' ? 'activeLi' : ''}`} 
-            onClick={() => {
-              setSizeIcon('small')
-              localStorage.setItem('sizeIcon', 'small')
-            }}>
-              Icones pequenos 
-            </li>
-          </div> }
-      </div> }
-      <div 
-      onContextMenu={(e) => {
-        setAjustes({ y: e.clientY - 10,x: e.clientX - 10, open: true})
-        e.preventDefault()
-      }}
-      className='appsDesktop'>
-      {AppsArrayObjectState.map((App, index) => (
-        <>
-         <Draggable 
-          defaultPosition={{x: 0, y: 0}}>
-          <div
-          key={index} 
-          onDoubleClick={() => OpenApp(App)}
-          className={`iconApp iconApp--${sizeIcon}`}>
-            <img src={App.icon}/>
-            <span className='titleApp'>{App.title}</span>
-          </div>
-          </Draggable>
-        </>
-      ))}
-      <div
-      className='appDesk'>
-        {AppsAbertos.map((App, index) => (
-          <App.App
-          index={App.index}
-          CloseApp={() => CloseApp}
-          mimimizeApp={() => mimimizeApp}
-          MimimizeAppTwo={App.MimizeApp}
-          opened={App.open}/>
-          ))}
+    className='appsDesktop'>
+    {AppsArrayObjectState.map((App, index) => (
+      <>
+       <Draggable 
+        defaultPosition={{x: 0, y: 0}}>
+        <div
+        key={index} 
+        onTouchStart={() => {
+          OpenApp(App)
+        }}
+        onDoubleClick={() => OpenApp(App)}
+        className={`iconApp iconApp--${sizeIcon}`}>
+          <img src={App.icon}/>
+          <span className='titleApp'>{App.title}</span>
         </div>
-      </div>
-      <div className='leftAside'>
-      { MoreApps && <div
-      style={{
-        top: `${MoreApps.y}px`,
-      }}
-      className='moreOptionsClickDireito'>
-          <div className='close' onClick={() => {
-            setMoreApps(null)
-          }}></div>
-          <li 
-          onClick={() => {
-            CloseApp(MoreApps.App.index)
-            setMoreApps(null)
-          }}
-          >
-            <i className="fa-solid fa-xmark"></i> Fechar janela
-          </li>
-      </div> }
+        </Draggable>
+      </>
+    ))}
+    <div
+    className='appDesk'>
       {AppsAbertos.map((App, index) => (
-        <>
-         <div>
-           { App.open && 
-           <>
-            {!App.MimizeApp && <div className='selectMimizeApp'/>}
-            <div
-            ref={App.ref}
-            key={index}
-            onContextMenu={(e) => {
-              setMoreApps({App, y: e.clientY - 10})
-              e.preventDefault()
-            }}
-            onClick={() => mimimizeApp(App.index)}
-            className='iconApp displayBlock'>
-              <img src={App.icon}/>
-              {/* <span className='titleApp'>{App.title}</span> */}</div>
-           </> }
-          </div>
-        </>
-      ))}
+        <App.App
+        index={App.index}
+        CloseApp={() => CloseApp}
+        mimimizeApp={() => mimimizeApp}
+        MimimizeAppTwo={App.MimizeApp}
+        opened={App.open}/>
+        ))}
       </div>
-      <WallpaperComp/>
     </div>
-  );
+    <div className='leftAside'>
+    { MoreApps && <div
+    style={{
+      left: `${MoreApps.x}px`,
+      bottom: `80px`
+    }}
+    className='moreOptionsClickDireito'>
+        <div className='close' onClick={() => {
+          setMoreApps(null)
+        }}></div>
+        <li 
+        onClick={() => {
+          CloseApp(MoreApps.App.index)
+          setMoreApps(null)
+        }}
+        >
+          <i className="fa-solid fa-xmark"></i> Fechar janela
+        </li>
+    </div> }
+    {AppsAbertos.map((App, index) => (
+      <>
+       <div>
+         { App.open && 
+         <>
+          <div
+          ref={App.ref}
+          key={index}
+          onContextMenu={(e) => {
+            setMoreApps({App, x: e.clientX - 70})
+            e.preventDefault()
+          }}
+          onClick={() => mimimizeApp(App.index)}
+          className='iconApp displayBlock'>
+            <img src={App.icon}/>
+            {!App.MimizeApp && <div className='selectMimizeApp'/>}
+            {/* <span className='titleApp'>{App.title}</span> */}</div>
+         </> }
+        </div>
+      </>
+    ))}
+    </div>
+    <WallpaperComp/>
+  </div>
 }
 
 export default App;

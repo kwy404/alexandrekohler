@@ -97,7 +97,7 @@ body{
   border-radius: 50%;
   position: relative;
   top: 0.5rem;
-  left: 0.5rem;
+  left: -4.5rem;
   z-index: 20;
   cursor: pointer;
   z-index: -1;
@@ -204,28 +204,30 @@ body{
 
 .leftAside{
   position: fixed;
-  top: 0;
+  bottom: 40px;
   left: 0;
-  width: 70px;
-  height: 100%;
+  width: calc(100% - 10rem);
+  height: 70px;
   z-index: 50;
   font-size: 5rem;
   text-shadow: 0 0 0.1rem #000;
-  background-color: rgb(40 40 40);
+  background-color: transparent;
   color: #fff;
   user-select: none;
   z-index: 20;
+  left: 10rem;
   box-shadow: 0 0 0.1rem rgba(0,0,0,.40);
 }
 
 .displayBlock{
-  display: block;
+  display: inline-block;
   position: relative;
   z-index: 15;
   width: 60px !important;
   height: 60px !important;
-  margin-left: -2px;
+  margin-left: 10px;
   margin-top: 5px;
+  float: left;
 }
 
 .displayBlock img{
@@ -234,13 +236,13 @@ body{
 
 .selectMimizeApp{
   position: absolute;
-  margin-top: 60px;
-  left: -1px;
-  width: 5px;
+  margin-top: -15px;
+  margin-left: 19px;
+  width: 25px;
   height: 10px;
   z-index: 1;
   background-color: #fff;
-  box-shadow:rgb(40 40 40);
+  box-shadow: rgb(40 40 40);
   border-radius: 2px;
 }
 

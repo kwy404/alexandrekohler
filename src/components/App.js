@@ -9,7 +9,7 @@ export const AppT = (props) => {
             <div className={`${(props.MimimizeAppTwo ? `MimizeApp` : ``)}`}>
                 <Draggable 
                     handle=".handlerMoveDrag"
-                    defaultPosition={{x: 80, y: 0}}
+                    defaultPosition={{x: props.mobile ? 0 : 80, y: 0}}
                     position={null}>
                             <Browser
                             style={{
@@ -19,8 +19,9 @@ export const AppT = (props) => {
                                 overflowY: props.overflowY,
                                 backgroundColor: props.bg,
                                 zIndex: 20,
-                                position: 'absolute',
-                                top: `20px`
+                                position: props.mobile ? 'fixed' : 'absolute',
+                                top: props.mobile ? `0px` : `20px`,
+                                left: props.mobile ? `0px` : `0`
                             }}
                             resize={props.resize}
                             >

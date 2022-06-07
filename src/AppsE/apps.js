@@ -3,6 +3,8 @@ import { Calculator } from 'react-mac-calculator'
 
 import React, { Component } from 'react';
 import ReactStickyNotes from '@react-latest-ui/react-sticky-notes';
+import {AboutMe} from '../aboutme';
+
 
 class StickyNotes extends Component {
 	constructor(props) {
@@ -15,8 +17,28 @@ class StickyNotes extends Component {
 	}
 }
 
+export const AboutMeApp = props => {
+  return <AppT 
+    mobile={props.mobile}
+    title={"Sobre mim"} 
+    index={props.index}
+    mimimizeApp={() => props.mimimizeApp}
+    MimimizeAppTwo={props.MimimizeAppTwo}
+    CloseApp={() => props.CloseApp}
+    App={AboutMe} 
+    opened={props.opened}
+    bg={`white`}
+    resize={false}
+    width={props.mobile ? `100%` : `fit-content`}
+    height={props.mobile ? `100%` : `fit-content`}
+    overflowY={`hidden`}
+    overflowX={`hidden`}
+  />
+}
+
 export const CalculatorTor = props => {
     return <AppT 
+    mobile={props.mobile}
     title={"Calculadora"} 
     index={props.index}
     mimimizeApp={() => props.mimimizeApp}
@@ -26,8 +48,8 @@ export const CalculatorTor = props => {
     opened={props.opened}
     bg={`#555`}
     resize={false}
-    width={`fit-content`}
-    height={`fit-content`}
+    width={props.mobile ? `100%` : `fit-content`}
+    height={props.mobile ? `100%` : `fit-content`}
     overflowY={`hidden`}
     overflowX={`hidden`}
   />
@@ -51,6 +73,7 @@ const VSCode = () => {
 
 export const VsCode = props => {
   return <AppT 
+  mobile={props.mobile}
   title={"Visual Studio Code"} 
   index={props.index}
   mimimizeApp={() => props.mimimizeApp}
@@ -60,8 +83,8 @@ export const VsCode = props => {
   opened={props.opened}
   bg={`#555`}
   resize={true}
-  width={`800px`}
-  height={`600px`}
+  width={props.mobile ? `100%` : `800px`}
+  height={props.mobile ? `100%` : `600px`}
   overflowY={`hidden`}
   overflowX={`hidden`}
 />
@@ -69,6 +92,7 @@ export const VsCode = props => {
 
 export const Notes = props => {
   return <AppT 
+  mobile={props.mobile}
   title={"Notas"} 
   index={props.index}
   mimimizeApp={() => props.mimimizeApp}
@@ -78,8 +102,8 @@ export const Notes = props => {
   opened={props.opened}
   bg={`#555`}
   resize={true}
-  width={`800px`}
-  height={`500px`}
+  width={props.mobile ? `100%` : `800px`}
+  height={props.mobile ? `100%` : `500px`}
   overflowY={`auto`}
   overflowX={`hidden`}
 />
