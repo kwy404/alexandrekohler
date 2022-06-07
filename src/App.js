@@ -57,9 +57,6 @@ function App() {
       return app
     }
     ))
-    setTimeout(() => {
-      setAppsAbertos(AppsAbertos.filter(app => app.index !== index))
-    }, 2000)
   }
 
   const mimimizeApp = (index) => {
