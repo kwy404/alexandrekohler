@@ -20,25 +20,31 @@ const AppsArrayObject = AppsArray.map((app, index) => {
         icon: app,
         index,
         App: AppsFrom[index].App,
-        open: false,
-        MimizeApp: false
+        open: true,
+        MimizeApp: false,
+        id: 0
     }
 });
 
 function App() {
   const [AppsArrayObjectState, setAppsArrayObjectState] = useState(AppsArrayObject);
+  const [AppsAbertos, setAppsAbertos] = useState([]);
   const [time, setTime] = useState(0);
-  const OpenApp = (index) => {
-    setAppsArrayObjectState(AppsArrayObjectState.map(app => {
-      if(app.index === index){
-        app.open = true
-      }
-      return app
-    }
-    ))
+
+  useEffect(() => {
+    window.addEventListener('keyup', e => {
+      e.preventDefault();
+    })
+  }, [true])
+
+  const OpenApp = (app) => {
+    //Set AppsAbertos
+    const newApp = {...app, index: AppsAbertos.length + 1}
+    newApp.index = AppsAbertos.length + 1
+    setAppsAbertos(AppsAbertos.concat(newApp));
   }
   const CloseApp = (index) => {
-    setAppsArrayObjectState(AppsArrayObjectState.map(app => {
+    setAppsAbertos(AppsAbertos.map(app => {
       if(app.index === index){
         app.open = false
       }
@@ -48,7 +54,7 @@ function App() {
   }
 
   const mimimizeApp = (index) => {
-    setAppsArrayObjectState(AppsArrayObjectState.map(app => {
+    setAppsAbertos(AppsAbertos.map(app => {
       if(app.index === index){
         app.MimizeApp = !app.MimizeApp
       }
@@ -88,22 +94,24 @@ function App() {
           defaultPosition={{x: 0, y: 0}}>
           <div
           key={index} 
-          onDoubleClick={() => OpenApp(index)}
+          onDoubleClick={() => OpenApp(App)}
           className='iconApp'>
             <img src={App.icon}/>
             <span className='titleApp'>{App.title}</span>
           </div>
           </Draggable>
-            <div className='appDesk'>
-              <App.App
-              index={index}
-              CloseApp={() => CloseApp}
-              mimimizeApp={() => mimimizeApp}
-              MimimizeAppTwo={App.MimizeApp}
-              opened={App.open}/>
-            </div>
         </>
       ))}
+      <div className='appDesk'>
+        {AppsAbertos.map((App, index) => (
+          <App.App
+          index={App.index}
+          CloseApp={() => CloseApp}
+          mimimizeApp={() => mimimizeApp}
+          MimimizeAppTwo={App.MimizeApp}
+          opened={App.open}/>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -171,4 +171,5 @@ body{
   color: #fff;
   user-select: none;
   pointer-events: none;
+  z-index: 0;
 }
