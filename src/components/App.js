@@ -20,8 +20,8 @@ export const AppT = (props) => {
                                 backgroundColor: props.bg,
                                 zIndex: 20,
                                 position: props.mobile ? 'fixed' : 'absolute',
-                                top: props.mobile ? `0px` : `20px`,
-                                left: props.mobile ? `0px` : `0`
+                                top: props.mobile ? `0px` : `-35vh`,
+                                left: props.mobile ? `0px` : `-3vw`
                             }}
                             resize={props.resize}
                             >
