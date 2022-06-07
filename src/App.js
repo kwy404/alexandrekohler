@@ -19,7 +19,6 @@ const AppsFrom = [{
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));
 //Transform wallpapers to array 
 const AppsArray = Object.keys(apps).map(key => apps[key]);
-console.log(AppsArray)
 //Transform AppsArray in array object
 const AppsArrayObject = AppsArray.map((app, index) => {
     return {
@@ -39,6 +38,9 @@ function App() {
   const [AppsAbertos, setAppsAbertos] = useState([]);
   const [time, setTime] = useState(0);
   const [MoreApps, setMoreApps] = useState(null);
+  const [ajustes, setAjustes] = useState({x: 0, y: 0, open: false});
+  const [showAjustesSizeIcon, setShowAjustesSizeIcon] = useState(false);
+  const [sizeIcon, setSizeIcon] = useState(typeof localStorage.getItem(`sizeIcon`) == 'object' ? 'medium' : localStorage.getItem(`sizeIcon`));
 
   useEffect(() => {
     window.addEventListener('keyup', e => {
@@ -94,9 +96,71 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div 
+    onContextMenu={(e) => {
+      e.preventDefault()
+    }}
+    className={`App`}>
       <h1 className='timeHours'>{time}</h1>
-      <div className='appsDesktop'>
+      { ajustes.open && <div
+      style={{
+        top: `${ajustes.y}px`,
+        left: `${ajustes.x}px`
+      }}
+      className='moreOptionsClickDireito--Ajustes'>
+          <div className='close' onClick={() => {
+            setAjustes({ y:0,x: 0, open: false})
+          }}></div>
+          <li onMouseOver={() => {
+            setShowAjustesSizeIcon(!showAjustesSizeIcon)
+          }}>
+            Exibir <i className="fa-solid fa-chevron-right"></i>
+          </li>
+          <li 
+          onClick={() => {
+            setAjustes({ y:0,x: 0, open: false})
+          }}
+          onMouseOver={() => setShowAjustesSizeIcon(false)}>
+            Atualizar
+          </li>
+          <li
+          onMouseOver={() => setShowAjustesSizeIcon(false)}>
+            Personalizar
+          </li>
+          { showAjustesSizeIcon && 
+          <div className='rightPanel'>
+            <li 
+            className={`${sizeIcon === 'largue' ? 'activeLi' : ''}`} 
+            onClick={() => {
+              setSizeIcon('largue')
+              localStorage.setItem('sizeIcon', 'largue')
+            }}>
+              Icones grandes 
+            </li>
+            <li 
+            className={`${sizeIcon === 'medium' ? 'activeLi' : ''}`} 
+            onClick={() => {
+              setSizeIcon('medium')
+              localStorage.setItem('sizeIcon', 'medium')
+            }}>
+              Icones medios 
+            </li>
+            <li 
+            className={`${sizeIcon === 'small' ? 'activeLi' : ''}`} 
+            onClick={() => {
+              setSizeIcon('small')
+              localStorage.setItem('sizeIcon', 'small')
+            }}>
+              Icones pequenos 
+            </li>
+          </div> }
+      </div> }
+      <div 
+      onContextMenu={(e) => {
+        setAjustes({ y: e.clientY - 10,x: e.clientX - 10, open: true})
+        e.preventDefault()
+      }}
+      className='appsDesktop'>
       {AppsArrayObjectState.map((App, index) => (
         <>
          <Draggable 
@@ -104,14 +168,15 @@ function App() {
           <div
           key={index} 
           onDoubleClick={() => OpenApp(App)}
-          className='iconApp'>
+          className={`iconApp iconApp--${sizeIcon}`}>
             <img src={App.icon}/>
             <span className='titleApp'>{App.title}</span>
           </div>
           </Draggable>
         </>
       ))}
-      <div className='appDesk'>
+      <div
+      className='appDesk'>
         {AppsAbertos.map((App, index) => (
           <App.App
           index={App.index}
