@@ -11,16 +11,14 @@ const AppsFrom = [{
 }, {
   App: Notes,
   title: `Notas`
-}, {
-  App: VsCode,
-  title: `VsCode`
 },{
   App: AboutMeApp,
   title: `Sobre`
 }, {
   App: Spotify,
   title: 'Spotify'
-}]
+}
+]
 
 const apps = getWallPaper(require.context('./apps', false, /\.(png|jpe?g|svg|webp)$/));
 //Transform wallpapers to array 
@@ -66,7 +64,7 @@ const Desktop = () => {
     window.addEventListener('keyup', e => {
       e.preventDefault();
     })
-    const newApp = {...AppsArrayObjectState[3], index: -1}
+    const newApp = {...AppsArrayObjectState[2], index: -1}
     newApp.index = -1
     newApp.closed = false
     setAppsAbertos(AppsAbertos.concat(newApp));
@@ -137,7 +135,7 @@ const Desktop = () => {
         <li onMouseOver={() => {
           setShowAjustesSizeIcon(!showAjustesSizeIcon)
         }}>
-          Exibir <i className="fa-solid fa-chevron-right"></i>
+          Exibir
         </li>
         <li 
         onClick={() => {
@@ -204,25 +202,26 @@ const Desktop = () => {
     <div
     className='appDesk'>
       {AppsAbertos.map((App, index) => (
+        <>
+        { App.open && <>
         <App.App
         index={App.index}
         CloseApp={() => CloseApp}
         mimimizeApp={() => mimimizeApp}
         MimimizeAppTwo={App.MimizeApp}
         opened={App.open}/>
-        ))}
+         </>}
+        </> ))}
       </div>
     </div>
-    <div className='leftAside'>
-    { MoreApps && <div
+    <div className='leftAside glass'>
+    { MoreApps && <>
+    <div
     style={{
       left: `${MoreApps.x}px`,
       bottom: `80px`
     }}
-    className='moreOptionsClickDireito'>
-        <div className='close' onClick={() => {
-          setMoreApps(null)
-        }}></div>
+    className='moreOptionsClickDireito glass'>
         <li 
         onClick={() => {
           CloseApp(MoreApps.App.index)
@@ -231,7 +230,11 @@ const Desktop = () => {
         >
           <i className="fa-solid fa-xmark"></i> Fechar janela
         </li>
-    </div> }
+    </div> 
+    <div className='close' onClick={() => {
+          setMoreApps(null)
+        }}></div>
+    </>}
     {AppsAbertos.map((App, index) => (
       <>
        <div>
@@ -241,13 +244,13 @@ const Desktop = () => {
           ref={App.ref}
           key={index}
           onContextMenu={(e) => {
-            setMoreApps({App, x: e.clientX - 70})
+            setMoreApps({App, x: e.clientX - 250})
             e.preventDefault()
           }}
           onClick={() => mimimizeApp(App.index)}
-          className='iconApp displayBlock'>
+          className='iconApp displayBlock appBlock'>
             <img src={App.icon}/>
-            {!App.MimizeApp && <div className='selectMimizeApp'/>}</div>
+            {!App.MimizeApp && <div className='selectMimizeApp glass'/>}</div>
          </> }
         </div>
       </>

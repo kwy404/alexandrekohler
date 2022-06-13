@@ -1,11 +1,10 @@
 import {AppT} from '../components/App';
 import { Calculator } from 'react-mac-calculator'
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ReactStickyNotes from '@react-latest-ui/react-sticky-notes';
 import {AboutMe} from '../aboutme';
 import SpotifyPlayer from 'react-spotify-player';
-
 
 class StickyNotes extends Component {
 	constructor(props) {
@@ -35,23 +34,23 @@ const Spot = () => {
 }
 
 export const Spotify = props => {
-return <AppT 
-    mobile={props.mobile}
-    title={"Spotify"} 
-    index={props.index}
-    mimimizeApp={() => props.mimimizeApp}
-    MimimizeAppTwo={props.MimimizeAppTwo}
-    CloseApp={() => props.CloseApp}
-    App={Spot} 
-    opened={props.opened}
-    bg={`#151515`}
-    resize={false}
-    width={props.mobile ? `100%` : `550px`}
-    height={props.mobile ? `100%` : `550px`}
-    overflowY={`auto`}
-    overflowX={`hidden`}
-  />
-}
+  return <AppT 
+      mobile={props.mobile}
+      title={"Spotify"} 
+      index={props.index}
+      mimimizeApp={() => props.mimimizeApp}
+      MimimizeAppTwo={props.MimimizeAppTwo}
+      CloseApp={() => props.CloseApp}
+      App={Spot} 
+      opened={props.opened}
+      bg={`#151515`}
+      resize={false}
+      width={props.mobile ? `100%` : `550px`}
+      height={props.mobile ? `100%` : `550px`}
+      overflowY={`auto`}
+      overflowX={`hidden`}
+    />
+  }
 
 export const AboutMeApp = props => {
   return <AppT 
