@@ -1,7 +1,7 @@
 import './App.css';
 import {WallpaperComp} from './components/Wallpaper';
 import { getWallPaper } from './utils/getWallpapers';
-import {CalculatorTor, Notes, VsCode, AboutMeApp, Spotify} from './AppsE/apps';
+import {CalculatorTor, Notes, Ajustes, AboutMeApp, Spotify} from './AppsE/apps';
 import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 
@@ -9,11 +9,14 @@ const AppsFrom = [{
   App: CalculatorTor,
   title: `Calculadora`
 }, {
+  App: Ajustes,
+  title: `Ajustes`
+},{
   App: Notes,
   title: `Notas`
-},{
+}, {
   App: AboutMeApp,
-  title: `Sobre`
+  title: 'Sobre'
 }, {
   App: Spotify,
   title: 'Spotify'
@@ -64,7 +67,7 @@ const Desktop = () => {
     window.addEventListener('keyup', e => {
       e.preventDefault();
     })
-    const newApp = {...AppsArrayObjectState[2], index: -1}
+    const newApp = {...AppsArrayObjectState[3], index: -1}
     newApp.index = -1
     newApp.closed = false
     setAppsAbertos(AppsAbertos.concat(newApp));
@@ -176,11 +179,7 @@ const Desktop = () => {
           </li>
         </div> }
     </div> }
-    <div 
-    onContextMenu={(e) => {
-      setAjustes({ y: e.clientY - 10,x: e.clientX - 10, open: true})
-      e.preventDefault()
-    }}
+    <div
     className='appsDesktop'>
     {AppsArrayObjectState.map((App, index) => (
       <>
@@ -213,6 +212,12 @@ const Desktop = () => {
          </>}
         </> ))}
       </div>
+      
+    <div  
+    onContextMenu={(e) => {
+      setAjustes({ y: e.clientY - 10,x: e.clientX - 10, open: true})
+      e.preventDefault()
+    }} className="fixedApp"></div>
     </div>
     <div className='leftAside glass'>
     { MoreApps && <>
@@ -244,7 +249,7 @@ const Desktop = () => {
           ref={App.ref}
           key={index}
           onContextMenu={(e) => {
-            setMoreApps({App, x: e.clientX - 250})
+            setMoreApps({App, x: e.clientX - 370})
             e.preventDefault()
           }}
           onClick={() => mimimizeApp(App.index)}

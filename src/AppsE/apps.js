@@ -5,6 +5,7 @@ import React, { Component, useState } from 'react';
 import ReactStickyNotes from '@react-latest-ui/react-sticky-notes';
 import {AboutMe} from '../aboutme';
 import SpotifyPlayer from 'react-spotify-player';
+import { getWallPaper } from '../utils/getWallpapers';
 
 class StickyNotes extends Component {
 	constructor(props) {
@@ -90,31 +91,60 @@ export const CalculatorTor = props => {
   />
 }
 
-const VSCode = () => {
-  return <div
-  >
-    <iframe 
-    style={{
-      width: `calc(100% - 0px)`,
-      height: `100%`,
-      position: `fixed`,
-      top: `0px`,
-      marginLeft: `-10px`
+const AjustesD = () => {
+  const [position, setPosition] = useState(0);
+  const wallpapers = getWallPaper(require.context('../wallpapers', false, /\.(png|jpe?g|svg|webp)$/));
+  //Transform wallpapers to array 
+  const wallpapersArray = Object.keys(wallpapers).map(key => wallpapers[key]);
+  return <div className='hai glass'>
+    <h3>Escolha algum Wallpaper de sua escolha...</h3>
+    <div 
+    onClick={() => {
+      if (position > 0) {
+        setPosition(position - 1);
+      }
     }}
-    src='https://vscode.dev/' 
-    frameBorder={0}></iframe>
+    className='arrow arrowLeft glass'>
+      <i className="fa-solid fa-arrow-left"></i>
+    </div>
+    <div 
+    onClick={() => {
+      if (position < wallpapersArray.length) {
+        setPosition(position + 1);
+      }
+    }}
+    className='arrow arrowRight glass'>
+      <i className="fa-solid fa-arrow-right"></i>
+    </div>
+    <div className='wallpaper-container'
+    style={{
+      transform: `translateX(-${position * 96}%)`
+    }}
+    >
+      {wallpapersArray.map((wallpaper, index) => (
+        <img 
+        onClick={() => {
+          localStorage.setItem('image', wallpaper);
+          setPosition(position + 1)
+          setTimeout(() => {
+            setPosition(index)
+          }, 1)
+        }}
+        key={index} src={wallpaper} alt="wallpaper" className={`${(localStorage.getItem('image') === wallpaper ? `selected` : ``)}`} />
+      ))}
+    </div>  
   </div>
 }
 
-export const VsCode = props => {
+export const Ajustes = props => {
   return <AppT 
   mobile={props.mobile}
-  title={"Visual Studio Code"} 
+  title={"Ajustes"} 
   index={props.index}
   mimimizeApp={() => props.mimimizeApp}
   MimimizeAppTwo={props.MimimizeAppTwo}
   CloseApp={() => props.CloseApp}
-  App={VSCode} 
+  App={AjustesD} 
   opened={props.opened}
   bg={`#555`}
   resize={true}

@@ -97,9 +97,8 @@ body{
   border-radius: 50%;
   position: relative;
   top: 0.5rem;
-  z-index: 20;
+  z-index: 0;
   cursor: pointer;
-  z-index: -1;
   margin-top: 40px;
 }
 
@@ -124,9 +123,9 @@ body{
 }
 
 .appsDesktop{
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 120px;
+  left: 20px;
   width: 100%;
   height: 100%;
   z-index: 20;
@@ -141,8 +140,19 @@ body{
   border: 1px solid rgba(255, 255, 255, 0.43);
 }
 
+.fixedApp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: transparent;
+}
+
 .OpenAppAnimation{
   transform: scale(1);
+  z-index: 100000;
   animation: openAppAnimation 1s ease;
 }
 
@@ -432,4 +442,70 @@ hr{
 
 .github:hover{
   text-decoration: underline;
+}
+
+.arrow{
+  position: absolute;
+  top: 200px;
+  color: white;
+  z-index: 100;
+  transform: scale(2);
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.arrow:hover{
+  transform: scale(2.2);
+}
+
+.arrowRight{
+  float: right;
+  right: 25px;
+}
+
+.wallpaper-container{
+  position: relative;
+  width: calc(100%);
+  height: 240px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  transition: 0.4s ease;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  align-items: baseline;
+  left: 20px;
+  margin-left: -50px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.wallpaper-container img{
+  width: 100%;
+  height: 100%;
+  margin-left: 5px;
+  float: left;
+  object-fit: cover;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.hai{
+  width: calc(100% - 90px);
+  height: 100%;
+  background: #fff;
+  border-radius: 0px;
+  position: fixed;
+  overflow: auto;
+  padding: 30px;
+}
+
+.selected{
+  border: 2px solid #0c0c0c;
+  transform: scale(1.1);
+  margin-left: 40px !important;
+  margin-right: 40px !important;
 }

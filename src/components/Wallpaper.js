@@ -1,18 +1,12 @@
 import { getWallPaper } from '../utils/getWallpapers';
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 const wallpapers = getWallPaper(require.context('../wallpapers', false, /\.(png|jpe?g|svg|webp)$/));
 //Transform wallpapers to array 
 const wallpapersArray = Object.keys(wallpapers).map(key => wallpapers[key]);
 
-//Get image from localStorage
-const getImage = () => {
-    const random = Math.floor(Math.random() * wallpapersArray.length);
-    return localStorage.getItem('image') ? localStorage.getItem('image') : wallpapersArray[random];
-};
-
 const Wallpaper = styled.div`
-    background-image: url(${getImage()});
     position: fixed;
     width: 100%;
     height: 100%;
@@ -22,8 +16,31 @@ const Wallpaper = styled.div`
 `
 
 export const WallpaperComp = () => {
+    const [wallpaperState, setWallpaperState] = useState(null);
+    useEffect(() => {
+        getImage()
+        getIntervalImage()
+    }, []);
+    //Get image from localStorage
+    const getImage = () => {
+        const random = Math.floor(Math.random() * wallpapersArray.length);
+        if(localStorage.getItem('image') === null) {
+            localStorage.setItem('image', wallpapersArray[random]);
+        }
+        setWallpaperState(wallpapersArray[random])
+    };
+    const getIntervalImage = () => {
+        setInterval(() => {
+            if(localStorage.getItem('image') !== wallpaperState) {
+                getImage()
+                setWallpaperState(localStorage.getItem('image'))
+            }
+        }, 100)
+    }
     return <>
-        <Wallpaper>
+        <Wallpaper style={{
+            backgroundImage: `url(${wallpaperState})`
+        }}>
 
         </Wallpaper>
     </>
