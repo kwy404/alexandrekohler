@@ -4,6 +4,7 @@ import { getWallPaper } from './utils/getWallpapers';
 import {CalculatorTor, Notes, Ajustes, AboutMeApp, Spotify} from './AppsE/apps';
 import { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
+import {Android} from './Android';
 
 const AppsFrom = [{
   App: CalculatorTor,
@@ -49,7 +50,8 @@ function App() {
   }, [])
   return (
     <>
-      { windowSize > 700 ? <Desktop/> : `` }
+      { windowSize > 700 ? <Desktop/> : <Android/> }
+      <WallpaperComp/>
     </>
   );
 }
@@ -261,7 +263,7 @@ const Desktop = () => {
       </>
     ))}
     </div>
-    <WallpaperComp/>
+    
   </div>
 }
 

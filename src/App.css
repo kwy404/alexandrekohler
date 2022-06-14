@@ -152,7 +152,7 @@ body{
 
 .OpenAppAnimation{
   transform: scale(1);
-  z-index: 100000;
+  z-index: 1000000;
   animation: openAppAnimation 1s ease;
 }
 
@@ -508,4 +508,43 @@ hr{
   transform: scale(1.1);
   margin-left: 40px !important;
   margin-right: 40px !important;
+}
+
+.iconAppAndroid{
+  float: left;
+  margin-left: 4em;
+  left: 0em;
+}
+
+.bottomBar{
+  position: fixed;
+  z-index: 10000000;
+  background-color: red;
+  width: 100%;
+  height: 50px;
+  bottom: 0px;
+  display: flex;
+  border-radius: 0px !important;
+  padding-top: 10px;
+  transform: scale(1.1);
+}
+
+.bottomBar i{
+  font-size: 1.5rem;
+  color: #fff;
+  margin-left: 10px;
+  display: flex;
+  margin-left: 25%;
+  left: -10%;
+  top: 5px;
+  position: relative;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.glassAndroid{
+  background: rgba(0, 0, 0, 0.13);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
