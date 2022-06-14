@@ -109,7 +109,7 @@ const AjustesD = () => {
     </div>
     <div 
     onClick={() => {
-      if (position < wallpapersArray.length) {
+      if (position < wallpapersArray.length - 1) {
         setPosition(position + 1);
       }
     }}
